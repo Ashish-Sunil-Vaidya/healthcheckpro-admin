@@ -88,7 +88,7 @@ const AddCategoryForm = () => {
                 />
                 <Button onClick={handleSubmit} colorScheme="blue">Add Category</Button></VStack>
 
-            <VStack spacing={4} w="100%" mt={4} h="100%" overflowY="auto" p={5}>
+            <VStack spacing={4} w="100%" mt={4} h="60svh" overflowY="auto" p={5}>
             <Heading size="lg" mt={10}>Categories</Heading>
                 {categories && categories.map((category) => (
                     <Box
