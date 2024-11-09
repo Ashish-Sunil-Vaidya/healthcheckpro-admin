@@ -88,41 +88,42 @@ const AddCategoryForm = () => {
                 />
                 <Button onClick={handleSubmit} colorScheme="blue">Add Category</Button></VStack>
 
-            <VStack spacing={4} w="100%" mt={4} h="80svh" overflowY="auto" p={5}>
-            <Heading size="lg" mt={10}>Categories</Heading>
-                {categories && categories.map((category) => (
-                    <Box
-                        key={category._id}
-                        p={4}
-                        w="100%"
-                        bgColor={cardBg}
-                        borderRadius="md"
-                        boxShadow="md"
-                    >
-                        <HStack w="100%" justifyContent="space-between">
-                            <Heading size="md">{category.categoryName}</Heading>
-                            <HStack>
-                                <Button
-                                    size="sm"
-                                    colorScheme="blue"
-                                    onClick={() => handleCopyToClipboard(category._id)}
-                                >
-                                    Copy ID
-                                </Button>
-                                <Button
-                                    size="sm"
-                                    colorScheme="red"
-                                    onClick={() => openDeleteModal(category._id, category.categoryName)}
-                                >
-                                    Delete
-                                </Button>
+            <Box w="100%">
+                <Heading size="lg" mt={10}>Categories</Heading>
+                <VStack spacing={4}  mt={4} h="85svh" overflowY="auto" p={5}>
+                    {categories && categories.map((category) => (
+                        <Box
+                            key={category._id}
+                            p={4}
+                            w="100%"
+                            bgColor={cardBg}
+                            borderRadius="md"
+                            boxShadow="md"
+                        >
+                            <HStack w="100%" justifyContent="space-between">
+                                <Heading size="md">{category.categoryName}</Heading>
+                                <HStack>
+                                    <Button
+                                        size="sm"
+                                        colorScheme="blue"
+                                        onClick={() => handleCopyToClipboard(category._id)}
+                                    >
+                                        Copy ID
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        colorScheme="red"
+                                        onClick={() => openDeleteModal(category._id, category.categoryName)}
+                                    >
+                                        Delete
+                                    </Button>
+                                </HStack>
                             </HStack>
-                        </HStack>
-                        <Text mt={2}>{category.description}</Text>
-                        <Text mt={2} fontSize="sm" color="gray.500">ID: {category._id}</Text>
-                    </Box>
-                ))}
-            </VStack>
+                            <Text mt={2}>{category.description}</Text>
+                            <Text mt={2} fontSize="sm" color="gray.500">ID: {category._id}</Text>
+                        </Box>
+                    ))}
+                </VStack></Box>
 
             <AlertDialog
                 isOpen={isOpen}
