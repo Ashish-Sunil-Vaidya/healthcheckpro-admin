@@ -1,16 +1,24 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useToast } from '@chakra-ui/react';
+import useGlobalState from './useGlobalState';
 
 const useAdmin = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const toast = useToast();
+    const { user } = useGlobalState();
+
+    const axiosInstance = axios.create({
+        headers: {
+            Authorization: `Bearer ${user.token}`
+        }
+    });
 
     const fetchCategories = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('/api/admin/categories');
+            const response = await axiosInstance.get('/api/admin/categories');
             console.log('=== response useAdmin.js [14] ===', response.data);
             return response.data;
         } catch (err) {
@@ -30,13 +38,10 @@ const useAdmin = () => {
     const fetchQuestionsByCategory = async (categoryId) => {
         setLoading(true);
         try {
-            const response = await axios.get(`/api/admin/questions/${categoryId}`);
-
+            const response = await axiosInstance.get(`/api/admin/questions/${categoryId}`);
             return response.data;
-
         } catch (err) {
             setError(err);
-
         } finally {
             setLoading(false);
         }
@@ -45,8 +50,7 @@ const useAdmin = () => {
     const addCategory = async (categoryData) => {
         setLoading(true);
         try {
-            const response = await axios.post('/api/admin/add-category', categoryData);
-
+            const response = await axiosInstance.post('/api/admin/add-category', categoryData);
             toast({
                 title: "Category added successfully.",
                 status: "success",
@@ -57,7 +61,7 @@ const useAdmin = () => {
             setError(err);
             toast({
                 title: "Error adding category.",
-                description: err.message,
+                description: err.response.data.error,
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -70,7 +74,7 @@ const useAdmin = () => {
     const deleteCategory = async (id) => {
         setLoading(true);
         try {
-            await axios.delete(`/api/admin/delete-category/${id}`);
+            await axiosInstance.delete(`/api/admin/delete-category/${id}`);
             toast({
                 title: "Category deleted successfully.",
                 status: "success",
@@ -91,13 +95,10 @@ const useAdmin = () => {
         }
     };
 
-
-
     const addQuestion = async (questionData) => {
         setLoading(true);
         try {
-            const response = await axios.post('/api/admin/add-question', questionData);
-
+            const response = await axiosInstance.post('/api/admin/add-question', questionData);
             toast({
                 title: "Question added successfully.",
                 status: "success",
@@ -122,8 +123,7 @@ const useAdmin = () => {
     const modifyQuestion = async (id, questionData) => {
         setLoading(true);
         try {
-            await axios.put(`/api/admin/modify-question/${id}`, questionData);
-
+            await axiosInstance.put(`/api/admin/modify-question/${id}`, questionData);
             toast({
                 title: "Question modified successfully.",
                 status: "success",
@@ -134,7 +134,7 @@ const useAdmin = () => {
             setError(err);
             toast({
                 title: "Error modifying question.",
-                description: err.message,
+                description: err.response.data.error,
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -147,8 +147,7 @@ const useAdmin = () => {
     const deleteQuestion = async (id) => {
         setLoading(true);
         try {
-            await axios.delete(`/api/admin/delete-question/${id}`);
-
+            await axiosInstance.delete(`/api/admin/delete-question/${id}`);
             toast({
                 title: "Question deleted successfully.",
                 status: "success",
@@ -159,7 +158,7 @@ const useAdmin = () => {
             setError(err);
             toast({
                 title: "Error deleting question.",
-                description: err.message,
+                description:err.response.data.error,
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -170,7 +169,6 @@ const useAdmin = () => {
     };
 
     return {
-
         loading,
         error,
         fetchCategories,

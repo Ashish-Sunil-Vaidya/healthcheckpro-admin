@@ -22,12 +22,6 @@ export const protect = async (req, res, next) => {
                 });
             }
 
-            if (user.role !== 'admin') {
-                return res.status(403).json({
-                    message: "Access denied, admin only"
-                });
-            }
-
             req.user = user;
             next();
         } catch (err) {

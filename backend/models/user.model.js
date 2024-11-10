@@ -21,43 +21,15 @@ const userSchema = new Schema({
     min: 2,
     max: 50,
   },
-  age: {
-    type: Number,
-    required: true,
-    min: 18,
-    max: 99,
-    default: 18,
-  },
-  gender: {
-    type: String,
-    required: true,
-    enum: ['Male', 'Female', 'Other'],
-    default: 'Male',
-    trim: true,
-  },
   password: {
     type: String,
     default: "password",
     required: true,
-  },
-  profilePic: {
-    type: String,
-    default: "",
   }
 }, { timestamps: true });
 
 
-userSchema.statics.verifyOTP = async (email, otp) => {
-  if (otpStore[email] === otp) {
-    verifiedEmails[email] = true
-    delete otpStore[email]
-    res.status(200).json({ message: "Email verified successfully!" })
-  } else {
-    throw new Error("Invalid OTP");
-  }
-}
 
-
-const User = mongoose.model("Users", userSchema);
+const User = mongoose.model("users", userSchema);
 
 export default User;

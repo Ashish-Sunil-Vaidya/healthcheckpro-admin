@@ -31,7 +31,7 @@ const useLogin = () => {
                 });
                 localStorage.setItem('user', JSON.stringify(response.data));
                 setUser(response.data);
-                navigate('/');
+                navigate('/admin/add-category');
             }
         } catch (error) {
             console.log('=== error useLogin.js [21] ===', error);

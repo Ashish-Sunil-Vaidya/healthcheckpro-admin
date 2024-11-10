@@ -1,6 +1,6 @@
 import AddCategoryForm from './AddCategoryForm';
 import AddQuestionForm from './AddQuestionForm';
 import Questions from './Questions';
-import Preview from './Preview';
+import Profile from './Profile';
 
-export { AddCategoryForm, AddQuestionForm, Questions, Preview };
+export { AddCategoryForm, AddQuestionForm, Questions, Profile };

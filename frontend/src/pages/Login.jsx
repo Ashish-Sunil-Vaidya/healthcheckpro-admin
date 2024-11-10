@@ -1,7 +1,7 @@
 import {
   Box, Button, FormControl,
-  FormHelperText,
-  FormLabel, Heading, Image, Input,
+
+  FormLabel, Image, Input,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -9,18 +9,17 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
-  Stack, Text,
+  Stack,
   useDisclosure,
-  VStack
+
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link as NLink, useNavigate } from "react-router-dom";
 
-import { useEffect } from "react";
+
 import useCustomTheme from "../hooks/useCustomTheme";
 import useGlobalState from "../hooks/useGlobalState";
 import useLogin from "../hooks/useLogin";
-import useOTP from "../hooks/useOTP";
 import authbg from "/authbg.png";
 
 const Login = () => {
@@ -30,7 +29,7 @@ const Login = () => {
   const {user} = useGlobalState();
 
   const { bodyBg, inputBg } = useCustomTheme();
-  const { sendOTPAction, loading:otpLaoding } = useOTP();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const navigate = useNavigate();
@@ -41,22 +40,7 @@ const Login = () => {
     });
   };
 
-  const handleSendOTP = async () => {
-    await sendOTPAction(email).
-    then((res) => {
-      console.log('=== res Login.jsx [42] ===', res);
-      navigate(`/reset-pass/${email}`);
-    }).
-    catch((error) => {
-      console.log(error);
-    });
-  };
 
-  useEffect(() => {
-    if(user){
-      navigate('/dashboard');
-    }
-  },[]);
 
   return (
     <Box
@@ -70,32 +54,7 @@ const Login = () => {
       position="relative"
       overflowX="hidden"
     >
-      <Box p={4} display={{ base: "block", md: "none" }} zIndex={3}>
-        <Text fontWeight="bold">Hi! Welcome back to</Text>
-        <Button as={NLink} to="/" colorScheme="blue" variant="link" fontSize="3xl" >HealthCheckPro</Button>
-        <Text>Sign In to continue!</Text>
-      </Box>
 
-      <VStack
-        width={{ base: "100%", md: "60%" }}
-        p={{ base: 4, md: 10 }}
-        textAlign={{ base: "center", md: "left" }}
-        align="baseline"
-        justify={"center"}
-        zIndex={2}
-        display={{ base: "none", md: "flex" }}
-      >
-        <Heading mb={4} size="xl">
-          Hi! Welcome back to <br /> <Button as={NLink} to="/" colorScheme="blue" variant="link" fontSize={80} >HealthCheckPro</Button>
-        </Heading>
-        <Heading size="md">Sign In to continue!</Heading>
-        <Text fontSize="md">
-         Don&apos;t have an account?{" "}
-          <Button variant="link" position="absolute" as={NLink} to="/register" colorScheme="blue" width="fit-content" fontSize="xl" fontWeight="bold" ml={4}>
-            Register here!
-          </Button>
-        </Text>
-      </VStack>
 
       <Image src={authbg} position="fixed" width="60%" objectFit="cover" opacity={0.1} zIndex={0} minW="500px" />
 
@@ -142,17 +101,9 @@ const Login = () => {
             <PopoverContent>
               <PopoverArrow />
               <PopoverCloseButton />
-              <PopoverHeader>Reset Your Password!</PopoverHeader>
+              <PopoverHeader>Admin Information</PopoverHeader>
               <PopoverBody>
-                <FormControl isInvalid={!email && error}>
-                  <Input mt={3} type="email" placeholder="Enter Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    boxShadow="md"
-                  />
-                  <FormHelperText my={3} textAlign="center">OTP will be sent on your mail to verify you.</FormHelperText>
-                </FormControl>
-                <Button w="100%" colorScheme="blue" onClick={handleSendOTP} isLoading={otpLaoding}>Send OTP</Button>
+                  Please contact the admin to reset your password.
               </PopoverBody>
             </PopoverContent>
           </Popover>

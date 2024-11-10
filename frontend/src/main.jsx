@@ -11,33 +11,41 @@ import { Login } from './pages'
 import GlobalProvider from './context/GlobalProvider'
 import ThemeProvider from './context/ThemeProvider'
 // import Question from './components/Question.jsx'
-import { Questions,AddCategoryForm,AddQuestionForm } from './components/admin_sections'
+import { Questions, AddCategoryForm, AddQuestionForm,Profile } from './components/admin_sections'
 
 
 // Add or remove routes as needed
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Login />
+  },
+  {
+    path: '/admin',
     element: <App />,
     children: [
       {
-        path:'',
-        element:<AddCategoryForm/>
+        path: '',
+        element: <Profile />
       },
       {
-        path:'add-question',
-        element:<AddQuestionForm/>
+        path: 'add-category',
+        element: <AddCategoryForm />,
+        errorElement: <h1>Token is invalid please login again or contact other admins to create account</h1>
+      },
+      {
+        path: 'add-question',
+        element: <AddQuestionForm />,
+        errorElement: <h1>Token is invalid please login again or contact other admins to create account</h1>
       },
       {
         path: 'questions',
-        element: <Questions />
+        element: <Questions />,
+        errorElement: <h1>Token is invalid please login again or contact other admins to create account</h1>
       }
     ]
   },
-  {
-    path: '/login',
-    element: <Login />,
-  },
+
   // {
   //   path: 'test',
   //   element: <Question/>
