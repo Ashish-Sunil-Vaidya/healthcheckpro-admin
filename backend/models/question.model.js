@@ -13,6 +13,10 @@ export const optionSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  suggestion: {
+    type: String,
+
+  },
 });
 
 const questionSchema = new mongoose.Schema(

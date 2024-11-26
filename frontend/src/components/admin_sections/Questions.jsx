@@ -178,8 +178,14 @@ const Questions = () => {
                                         type="number"
                                         value={option.score}
                                         onChange={(e) => handleOptionChange(index, 'score', e.target.value)}
-                                        mt={2}
+
                                     /></HStack>
+                                <Input
+                                    placeholder="Suggestion"
+                                    value={option.suggestion}
+                                    onChange={(e) => handleOptionChange(index, 'suggestion', e.target.value)}
+                                    mt={2}
+                                />
                             </FormControl>
                         ))}
                         <Button

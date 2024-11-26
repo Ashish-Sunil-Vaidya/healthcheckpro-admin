@@ -50,7 +50,7 @@ const AddQuestionForm = () => {
             questionText: question,
             options: options.map(option => ({
                 optionText: option.text,
-                score: option.score
+                score: option.score,
             })),
             selectedOption: null
         };
@@ -72,7 +72,7 @@ const AddQuestionForm = () => {
             <HStack justify="space-between" alignItems="center">
                 <HStack>
                     <Heading mb={5}>Add Question</Heading>
-                 
+
                 </HStack>
                 <Button colorScheme="blue" onClick={handleSubmit}>Submit</Button>
             </HStack>
